@@ -107,15 +107,15 @@ for ibdata in $innodb_data_file_path
 do
 	ibdata_file=`echo $ibdata| awk -F: '{print $1}'`.recovery
 	dir="pages-$ibdata_file"/FIL_PAGE_INDEX/0-1
-	mkdir -p "$work_dir/dumps/${mysql_db}_recovered"
+	mkdir -p "$work_dir/dumps/${mysql_db}"
 	if test -d "$dir"
 	then
-		"$top_dir"/bin/constraints_parser.SYS_TABLES -4Uf "$dir" -p "${mysql_db}_recovered" >> "dumps/${mysql_db}_recovered/SYS_TABLES" 2>SYS_TABLES.sql
+		"$top_dir"/bin/constraints_parser.SYS_TABLES -4Uf "$dir" -p "${mysql_db}" >> "dumps/${mysql_db}/SYS_TABLES" 2>SYS_TABLES.sql
 	fi
 	dir="pages-$ibdata_file"/FIL_PAGE_INDEX/0-3
 	if test -d "$dir"
 	then
-		"$top_dir"/bin/constraints_parser.SYS_INDEXES -4Uf "$dir" -p "${mysql_db}_recovered" >> "dumps/${mysql_db}_recovered/SYS_INDEXES" 2>SYS_INDEXES.sql
+		"$top_dir"/bin/constraints_parser.SYS_INDEXES -4Uf "$dir" -p "${mysql_db}" >> "dumps/${mysql_db}/SYS_INDEXES" 2>SYS_INDEXES.sql
 	fi
 
 done
