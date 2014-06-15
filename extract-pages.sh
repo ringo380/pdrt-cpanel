@@ -42,6 +42,16 @@ else
         echo "Using $work_dir... "
 		cd "$work_dir"
 		echo "OK"
+		if [ "$(ls -A `cat /root/.work_dir`)" ]; then
+			echo "Work directory ($work_dir) is not empty. Creating a new one... "
+			work_dir="/tmp/recovery_$RANDOM"
+			echo "$work_dir" > /root/.work_dir
+			echo -n "Initializing working directory at $work_dir... "
+			mkdir "$work_dir"
+			cd "$work_dir"
+			trap "if [ $? -ne 0 ] ; then rm -r \"$work_dir\"; fi" EXIT
+			echo "OK"
+		fi
 	else 
 		echo "/root/.work_dir exists, but does not contain a valid path."
 		exit 1
