@@ -8,6 +8,25 @@ mysql_host="localhost"
 mysql_db=$1
 top_dir="`pwd`"
 
+# Check if Bazaar is installed
+echo "Verifying Bazaar installation... "
+if rpm -q --nodigest --nosignatures bzr &> /dev/null
+then
+	echo "Bazaar missing, installing now... "
+	yum install bzr
+	if rpm -q --nodigest --nosignatures bzr &> /dev/null
+	then
+		echo "OK"
+	else
+		echo "Bazaar installation failed."
+		exit 1
+	fi
+else
+	echo "OK"
+fi
+
+
+
 if [[ ! -f /root/.my.cnf ]]; then
 	echo "/root/.my.cnf not found - please provide MySQL root password:"
 	$mysql_password = read mysql_password
