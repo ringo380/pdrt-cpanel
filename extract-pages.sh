@@ -26,7 +26,6 @@ else
 fi
 
 
-
 if [[ ! -f /root/.my.cnf ]]; then
 	echo "/root/.my.cnf not found - please provide MySQL root password:"
 	$mysql_password = read mysql_password
